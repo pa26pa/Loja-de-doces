@@ -1,0 +1,381 @@
+/*RESET GERAL*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+}
+html, body {
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex: 1;
+}
+
+/*ELEMENTOS GERAIS*/
+#container {
+    background-color: rgb(249, 223, 199);
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-header, .logo-footer {
+    width: 150px;
+}
+
+.social-media {
+    width: 50px;
+    padding-bottom: 10px;
+}
+.social-media:hover {
+    border-bottom: 5px solid rgb(173, 124, 0);
+    border-radius: 5px;
+}
+
+.logo {
+    flex-shrink: 0; /*não deixa o item encolher*/
+}
+
+/*HEADER*/
+header {
+    display: flex;
+    justify-content: space-between; /*item no inicio e item no fim (não centraliza item do meio automaticamente)*/
+    align-items: center;
+    padding: 20px 40px;
+    width: 100%;
+    height: 140px;
+    background-color: rgb(97, 42, 1);
+    border: none;
+    color: rgb(249, 223, 199);
+}
+
+/*CONTAINER DA BUSCA + BOTÕES*/
+#header-box {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    /*flex = shorthand para flex-grow(cresce), flex-shrink(encolhe), flex-basis(tamanho inicial 
+    flex: 1 = flex: 1 1 0*/
+    flex: 1; /*cresce e encolhe, mas a base (tamanho inicial) é zero*/
+    justify-content: flex-end; /*itens colados no final (à direita)*/
+}
+
+/*BUSCA*/
+.input-box {
+    flex: 1;
+    display: flex;
+    justify-content: center; /*itens centralizados verticalmente*/
+}
+.input-group {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 350px;
+    height: 35px;
+    border-radius: 30px;
+    background-color: rgb(249, 223, 199);
+}
+.input-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 33px;
+    height: 28px;
+    margin-left: 4px;
+    background-color: rgb(173, 124, 0);
+    border-radius: 50%;
+}
+.input-group input {
+    width: 100%;
+    padding: 8px 10px;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 15px;
+    font-weight: lighter;
+}
+#search:focus{
+    outline: none;
+}
+
+/*BOTÕES*/
+.buttons {
+    display: flex;
+    gap: 15px;
+    flex-shrink: 0;
+}
+.buttons button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 15px;
+    font-size: 18px;
+    background-color: rgb(173, 124, 0);
+    border: none;
+}
+.buttons button:hover {
+    background-color: rgb(148, 108, 7);
+}
+.link-button {
+    text-decoration: none;
+    color: rgb(249, 223, 199);
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+/*MENU*/
+.menu ul{
+    display: flex;
+    width: 100%;
+    height: 30px;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(97, 42, 1);
+    border-top: 2px solid rgb(173, 124, 0);
+}
+.menu a {
+    text-decoration: none;
+    color: rgb(249, 223, 199);
+    font-weight: bold;
+}
+.menu-pages {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 29px;
+    border-right: 2px solid rgb(173, 124, 0);
+}
+.menu-pages:last-child {
+    border: none;
+}
+.menu-pages:hover {
+    background-color: rgb(79, 37, 5);
+}
+
+/*FOOTER*/
+footer {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%;
+    height: 140px;
+    background-color: rgb(97, 42, 1);
+    border: none;
+    color: rgb(249, 223, 199);
+}
+.footer-boxes {
+    display: flex;
+    flex: 1;
+}
+.footer-boxes div {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 30px;
+}
+.footer-boxes div:not(:last-child) {
+    border-right: 2px solid rgb(173, 124, 0);
+    height: 100px;
+}
+#footer-box3 {
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+/*RESPONSIVO = não é adaptar para telas, é permitir que o layout se adapte sozinho*/
+/*@media = if*/
+@media (max-width: 768px) {/*desktop-first; min-width: 768px = mobile-first*/
+    header {
+        flex-wrap: wrap;/*define se pode ou não quebrar a linha quando não cabe mais no espaço*/
+        gap: 20px;
+        height: auto;
+        justify-content: center;
+    }
+
+    #header-box {
+        width: 100%;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .input-box {
+        width: 100%;
+    }
+
+    .input-group {
+        width: 100%;
+    }
+
+    #footer-box3 {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+}
+
+/*----------------------------------*/
+/*CADASTRO*/
+.signup-main {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+.signup-box {
+    display: flex;
+    width: 350px;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(244, 200, 158);
+    color: rgb(97, 42, 1);
+    margin: 10px 0;
+    border-radius: 30px;
+    border: 5px double rgb(97, 42, 1);
+    box-shadow: 0px 5px 15px 5px rgb(97, 42, 1);
+}
+.signup-title {
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 2em;
+    padding: 10px 0;
+}
+.signup-input-box {
+    position: relative;
+    width: 310px;
+    margin: 20px 0;
+    border-bottom: 1px solid rgb(97, 42, 1);
+}
+.signup-input-box label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-25%);
+    font-size: 1em;
+    pointer-events: none;
+    transition: 0.3s;
+    color: rgb(97, 42, 1);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.signup-input-box input:focus ~ label,
+.signup-input-box input:valid ~ label {
+    top: -5px;
+    font-size: 0.8em;
+}
+.signup-input-box input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: rgb(97, 42, 1);
+    padding: 20px 5px 0 5px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+.signup-button {
+    display: block;
+    margin: 20px auto;
+    width: 250px;
+    height: 35px;
+    border-radius: 30px;
+    border: none;
+    background-color: rgb(97, 42, 1);
+    color: rgb(249, 223, 199);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    font-size: 1em;
+}
+.signup-button:hover {
+    background-color: rgb(79, 37, 5);
+}
+
+/*MESAGEM DE ERRO*/
+#erroIdade, .erroSenha, .erroSenha2 {
+    display: none;
+    color: rgb(97, 42, 1);
+    font-weight: bold;
+    text-align: center;
+}
+
+/*LOGIN - FRONT-CARD*/
+.login-main {
+    flex: 1; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;  
+}
+.cards-container {
+    position: relative;
+    width: 350px;
+}
+.forgot-password a {
+    text-decoration: none;
+    color: rgb(97, 42, 1);
+    font-size: 1em;
+}
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+.login-box, .back-card {
+    width: 100%;
+}
+.back-card {
+    display: none;
+}
+
+/*CÓDIGO - TROCAR SENHA*/
+.codigo-card {
+    flex: 1; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;  
+}
+.cards-container2 {
+    position: relative;
+    width: 350px;
+}
+.codigo-card, .senha-card {
+    width: 100%;
+}
+.senha-card {
+    display: none;
+}
+
+/*AJUSTE DO BUG DE QUANDO COLA NO INPUT*/
+/*remove fundo branco*/
+input::selection { /*:: = pseudo-elemento (parte interna)*/
+    background: transparent;
+    color: inherit;
+}
+
+/*Firefox*/
+input::-moz-selection { /*usa-se -moz- para firefox*/
+    background: transparent;
+    color: inherit;
+}
+
+/*remove destaque padrão de foco*/
+input:focus { /*: = pseudo-classe(estado)*/
+    outline: none;
+    box-shadow: none;
+}
+
+/*Chrome, Edge, Safari (AUTOFILL)*/
+input:-webkit-autofill, /*usa-se -webkit-*/
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+    -webkit-text-fill-color: inherit !important;
+    transition: background-color 9999s ease-in-out 0s;
+}

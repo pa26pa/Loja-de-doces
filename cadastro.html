@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mania Doce | Cadastro</title>
+        <link rel="icon" href="logo-maniadoce.png" type="image/png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="container">
+            <header>
+                <div class="logo">
+                    <a href="inicio.html"><img class="logo-header" src="logo-maniadoce.png" alt="logo"></a>
+                </div>
+                <div id="header-box">
+                    <div class="input-box">
+                        <div class="input-group">
+                            <div class="input-icon">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                            <input type="text" id="search" class="input-field" placeholder="Pesquisar">
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button><a class="link-button" href="login-senha.html">Entrar</a></button>
+                    </div>
+                </div>
+            </header>
+            <div class="menu">
+                <nav>
+                    <ul>
+                        <div class="menu-pages"><li><a href="#destaques">Destaques</a></li></div>
+                        <div class="menu-pages"><li><a href="#sobre-nos">Sobre Nós</a></li></div>
+                        <div class="menu-pages"><li><a href="#avaliacoes">Avaliações</a></li></div>
+                        <div class="menu-pages"><li><a href="produtos.html">Produtos</a></li></div>  
+                    </ul>
+                </nav>
+            </div>
+            <main class="signup-main">
+                <div class="signup-box">
+                    <form action="inicio.html" method="post" class="signup-form cadastro">
+                        <h2 class="signup-title">Cadastre-se</h2>
+                        <div class="signup-input-box">
+                            <input type="text" id="name" name="name" required>
+                            <label for="name">Nome Completo</label>
+                        </div>
+                        <div class="signup-input-box">
+                            <input type="text" id="cpf" name="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required>
+                            <label for="cpf">CPF</label>
+                        </div>
+                        <div class="signup-input-box">
+                            <input type="email" id="email" name="email" required>
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="signup-input-box">
+                            <input type="tel" id="tel" name="tel" pattern="\(\d{2}\)\s\d{5}-\d{4}" required>
+                            <label for="tel">Telefone</label>
+                        </div>
+                        <div class="signup-input-box">
+                            <input type="text" id="date" name="date" pattern="\d{2}\/\d{2}\/\d{4}" required>
+                            <label for="date">Data de Nascimento</label>
+                            <p id="erroIdade">Deve ser maior de 18 anos</p>
+                        </div>
+                        <div class="signup-input-box password-box">
+                            <input type="password" class="password" name="password" required>
+                            <label for="password">Senha</label>
+                            <p class="erroSenha">Senha Inválida (mínimo 5 caracteres)</p>
+                        </div>
+                        <button type="submit" class="signup-button">Cadastrar</button>
+                    </form>
+                </div>
+            </main>
+            <footer>
+                <div class="logo">
+                    <img class="logo-footer" src="logo-maniadoce.png" alt="logo">
+                </div>
+                <div class="footer-boxes">
+                    <div id="footer-box1">
+                        (11) 34567-4567 (11) 72935-4265
+                    </div>
+                    <div id="footer-box2">
+                        Rua das Margaridas Douradas, 345 Vila Doce - São Paulo, SP
+                    </div>
+                    <div id="footer-box3">
+                        <a href="https://www.instagram.com/"><img class="social-media" src="insta.png" alt="instagram-logo"></a>
+                        <a href="https://www.facebook.com/?locale=pt_BR"><img class="social-media" src="face.png" alt="facebook-logo"></a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
