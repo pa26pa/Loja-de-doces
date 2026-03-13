@@ -124,5 +124,6 @@ class forgot(Resource):
         flash('Um código foi enviado no seu email')
         return{'mensagem':'Senha mudada com sucesso'}, 200
     def get(self):
+        print('YEY')
         return {"erro":"GET não é permitido"}, 400
             
