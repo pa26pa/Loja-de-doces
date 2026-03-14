@@ -7,7 +7,7 @@ import smtplib
 from email.message import EmailMessage
 #from jaja import password
 import mimetypes
-from sql.py import conection
+from backend.database.sql import conection
 
 class signin(Resource):
     def post(self):
@@ -177,7 +177,6 @@ class redefine_password(Resource):
                 }, 400
     
 class buy(Resource):
-    
     def post(self):
         return{
             'status':'success',

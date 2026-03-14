@@ -7,7 +7,7 @@ import smtplib
 from email.message import EmailMessage
 #from jaja import password
 import mimetypes
-from resources.auth import signin, login, forgot, redefine_password
+from backend.resources.auth import signin, login, forgot, redefine_password
 
 app = Flask(__name__)
 api = Api(app)
