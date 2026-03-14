@@ -104,6 +104,10 @@ class forgot(Resource):
         
         code = random.randint(100000,999999)
         
+        session["code"] = str(code)
+        session["cpf"] = cpf
+        
+        
         _from = 'paula.pires2640@gmail.com'
         to = user_email[0]
         password = 'rvcr wtfd gtal ijog'
@@ -120,10 +124,33 @@ class forgot(Resource):
             email.login(_from,password)
             email.send_message(msg)
         
-        
-        flash('Um código foi enviado no seu email')
-        return{'mensagem':'Senha mudada com sucesso'}, 200
+        return{'mensagem':'Um código foi enviado no seu email'}, 200
+    
     def get(self):
-        print('YEY')
         return {"erro":"GET não é permitido"}, 400
+
+class redefine_password(Resource):
+    def post(self):
+        con = conection()
+        cursor = con.cursor()
+        data = request.get_json()
+        
+        codigo = data.get('codigo')
+        nova_senha = data.get('nova senha')
+        
+        if codigo != session.get("code"):
+            return{'erro':'Código incorreto'}, 400
+        
+        update = """update usuarios set senha = %s where CPF = %s """
+        cursor.execute(update,(nova_senha,session.get('cpf')))
+        cursor.commit()
+        
+        cursor.close()
+        con.close()
+        
+        return{'mensagem':'Senha mudada com sucesso'}, 200
             
+    def get(self):
+        return {'erro':'GET não é permitido'}, 400
+    
+    
