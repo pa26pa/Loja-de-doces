@@ -150,7 +150,9 @@ class redefine_password(Resource):
         data = request.get_json()
         
         codigo = data.get('codigo')
-        nova_senha = data.get('nova senha')
+        nova_senha = data.get('nova_senha')
+        
+        nova_senha_hash = generate_password_hash(nova_senha)
         
         if codigo != session.get("code"):
             return {
@@ -158,9 +160,9 @@ class redefine_password(Resource):
                 'erro':'Código incorreto'
                 }, 400
         
-        update = """update usuarios set senha = %s where CPF = %s """
-        cursor.execute(update,(nova_senha,session.get('cpf')))
-        cursor.commit()
+        update = """update usuarios set senha = %s where id_usuario = %s """
+        cursor.execute(update,(nova_senha_hash,session['usuario_id']))
+        con.commit()
         
         cursor.close()
         con.close()
