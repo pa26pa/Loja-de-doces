@@ -115,7 +115,6 @@ class forgot(Resource):
         code = random.randint(100000,999999)
         
         session["code"] = str(code)
-        session["cpf"] = cpf
         
         
         _from = 'paula.pires2640@gmail.com'
@@ -155,11 +154,13 @@ class redefine_password(Resource):
         nova_senha_hash = generate_password_hash(nova_senha)
         
         if codigo != session.get("code"):
+            session.pop("code", None)
             return {
                 'status':'error',
                 'erro':'Código incorreto'
                 }, 400
         
+        session.pop("code", None)
         update = """update usuarios set senha = %s where id_usuario = %s """
         cursor.execute(update,(nova_senha_hash,session['usuario_id']))
         con.commit()
