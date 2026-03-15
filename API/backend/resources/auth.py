@@ -62,16 +62,15 @@ class login(Resource):
         cursor = con.cursor()
         data = request.get_json()
         
-        cpf = data.get('CPF')
+        email = data.get('email')
         senha = data.get('senha')
         
-        senha_hash = generate_password_hash(senha)
-        
-        search = """select * from usuarios where CPF = %s and senha = %s"""
-        cursor.execute(search,(cpf,senha_hash))
+        search = """select * from usuarios where email = %s"""
+        cursor.execute(search,(email,))
         login_valido = cursor.fetchone() 
         
-        if login_valido:
+        if login_valido and check_password_hash(login_valido['senha'], senha):
+            session['usuario_id'] = login_valido['id_usuario']
             return {
                 'status':'success',
                 'mensagem':"Login feito com sucesso"
@@ -176,9 +175,43 @@ class redefine_password(Resource):
             'erro':'GET não é permitido'
                 }, 400
     
-class buy(Resource):
+class add_to_cart(Resource):
     def post(self):
+        con = conection()
+        cursor = con.cursor()
+        data = request.get_json()
+        
+        id_produto = data.get('id_produto')
+        quantidade = data.get('quantidade')
+        
+        reserved = """select quantidade from produtos where id_produto = %s"""
+        cursor.execute(reserved,(id_produto,))
+        estoque = cursor.fetchone()
+        
+        if estoque < quantidade:
+            return{
+                'status':'error',
+                'mensagem':'Só temos {estoque} itens disponiveis'
+            }, 400
+        
+        if 'carrinho' not in session:
+            session['carrinho'] = {}
+            session['carrinho'][id_produto] = quantidade
+        
+        elif id_produto in session['carrinho']:
+            session['carrinho'][id_produto] += quantidade
+        
+        else:
+            session['carrinho'][id_produto] = quantidade
+
         return{
             'status':'success',
-            'mensagem':'Compra feita com sucesso'
+            'mensagem':'Produto adicionado no carrinho'
             }, 200
+    
+    def get(self):
+        return{
+            'status':'error',
+            'mensagem':'GET não é permitido'
+        }, 400
+    

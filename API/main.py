@@ -11,6 +11,7 @@ from backend.resources.auth import signin, login, forgot, redefine_password
 
 app = Flask(__name__)
 api = Api(app)
+app.secret_key = 'lol'
 
 api.add_resource(signin,"/sign")
 api.add_resource(login,"/login")
