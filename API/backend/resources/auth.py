@@ -218,3 +218,59 @@ class add_to_cart(Resource):
             'mensagem':'GET não é permitido'
         }, 400
 
+class trash_cart_items(Resource):
+    def post(self):
+        con = conection()
+        cursor = con.cursor()
+        data = request.get_json()
+        
+        id_produto_excluir = data.get('id_produto')
+        
+        session['carrinho'].pop(id_produto_excluir)
+        
+        return {
+            "status":"success",
+            "mensagem":"Produto foi exlcuido do carrinho"}
+class more_items_cart(Resource):
+    def post(self):
+        con = conection()
+        cursor = con.cursor()
+        data = request.get_json()
+        return {
+            "status":"success",
+            "mensagem":"Deu certo"
+        }, 200
+        
+class see_cart(Resource):
+    def carrinho(self):
+        con = conection()
+        cursor = con.cursor()
+        
+        carrinho = session.get['carrinho', {}]
+        
+        produtos = []
+        
+        if not carrinho:
+            return{
+                'status':'error',
+                'produtos':f'{produtos}'
+            }
+        
+        for id_produto, quantidade in carrinho.items():
+            
+            a = """select nome, preco_usuario from usuarios where id_produto = %s"""
+            cursor.execute(a,(id_produto,))
+            produto = cursor.fetchone()
+            
+            if produto:
+                produto['quantidade'] = quantidade
+                produtos.apppend(produto)
+                
+                return {
+                    "status":"success",
+                    "produtos":f"{produtos}"
+                }
+            return{
+                "status":"error",
+                "mensagem":"Não foi possivel encontrar produtos"
+            }, 500
