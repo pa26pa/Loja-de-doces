@@ -8,6 +8,7 @@ from email.message import EmailMessage
 #from jaja import password
 import mimetypes
 from backend.database.sql import conection
+from datetime import date, timedelta
 
 class signin(Resource):
     def post(self):
@@ -240,6 +241,7 @@ class more_items_cart(Resource):
         id_produto = data.get('id_produto')
         
         session['carrinho'][id_produto] += 1
+        session.modified = True
         return {
             "status":"success",
             "mensagem":"Foi adicionado"
@@ -254,13 +256,20 @@ class less_items_cart(Resource):
         id_produto = data.get('id_produto')
         
         session['carrinho'][id_produto] -= 1
+        session.modified = True
         return {
             "status":"success",
             "mensagem":"Foi retirado"
         }, 200
         
+    def get(self):
+        return{
+            'status':'error',
+            'mensagem':'GET não é permitido'
+        }, 400
+        
 class see_cart(Resource):
-    def carrinho(self):
+    def get(self):
         con = conection()
         cursor = con.cursor()
         
@@ -283,7 +292,7 @@ class see_cart(Resource):
             if produto:
                 produto['quantidade'] = quantidade
                 produtos.apppend(produto)
-                
+    
                 return {
                     "status":"success",
                     "produtos":f"{produtos}"
@@ -292,11 +301,43 @@ class see_cart(Resource):
                 "status":"error",
                 "mensagem":"Não foi possivel encontrar produtos"
             }, 500
-
-#class buy(Resource):
-#    def post(self):
-#        con = conection()
-#        cursor = con.cursor()
-#        data = request.get_json()
-
+    def post(self):
+        return{
+            'status':'error',
+            'mensagem':'POST não é permitido'
+        }, 400
+class buy(Resource):
+    def post(self):
+        con = conection()
+        cursor = con.cursor()
+        data = request.get_json()
+        
+        dia_compra = date.today()
+        previsao = dia_compra + timedelta(days=7)
+        valor = data.get('valor')
+        cpf = data.get('CPF')
+        
+        query = """insert into compras(CPF,data_compra,valor,entregue) values (%s,%s,%s,False)"""
+        cursor.execute(query,(cpf,dia_compra,valor))
+        id_compra = cursor.lastrowid
+        con.commit()
+        
+        carrinho = session.get['carrinho', {}]
+        
+        for id_produto, quantidade in carrinho.items():
+            q = """insert into compra_produtos (id_produto,id_compra,quantidade) values (%s,%s,%s)""" 
+            cursor.execute(q,(id_produto,id_compra,quantidade))
+            con.commit()
+        
+        session.pop('carrinho', None)
+        return {
+            'status':'success',
+            'mensagem':'compra executada com sucesso'
+        }, 200
+    
+    def get(self):
+        return{
+            'status':'error',
+            'mensagem':'GET não é permitido'
+        }, 400
         
