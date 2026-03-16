@@ -227,7 +227,7 @@ class trash_cart_items(Resource):
         id_produto_excluir = data.get('id_produto')
         
         session['carrinho'].pop(id_produto_excluir)
-        
+        session.modified = True
         return {
             "status":"success",
             "mensagem":"Produto foi exlcuido do carrinho"}
@@ -236,9 +236,27 @@ class more_items_cart(Resource):
         con = conection()
         cursor = con.cursor()
         data = request.get_json()
+
+        id_produto = data.get('id_produto')
+        
+        session['carrinho'][id_produto] += 1
         return {
             "status":"success",
-            "mensagem":"Deu certo"
+            "mensagem":"Foi adicionado"
+        }, 200
+        
+class less_items_cart(Resource):
+    def post(self):
+        con = conection()
+        cursor = con.cursor()
+        data = request.get_json()
+
+        id_produto = data.get('id_produto')
+        
+        session['carrinho'][id_produto] -= 1
+        return {
+            "status":"success",
+            "mensagem":"Foi retirado"
         }, 200
         
 class see_cart(Resource):
@@ -274,3 +292,11 @@ class see_cart(Resource):
                 "status":"error",
                 "mensagem":"Não foi possivel encontrar produtos"
             }, 500
+
+#class buy(Resource):
+#    def post(self):
+#        con = conection()
+#        cursor = con.cursor()
+#        data = request.get_json()
+
+        
