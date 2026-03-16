@@ -15,5 +15,5 @@ async function login() {
 
     const data = await resposta.json()
 
-    showAlert(data.message, data.status || "error")
+    showAlert(data.mensagem, data.status || "error")
 }

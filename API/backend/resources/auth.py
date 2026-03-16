@@ -16,11 +16,11 @@ class signin(Resource):
         con = conection()
         cursor = con.cursor()
         
-        cpf = data.get("CPF")
+        cpf = data.get("cpf")
         nome = data.get("nome")
         email = data.get("email")
         telefone = data.get("telefone")
-        endereço = data.get("endereço")
+        endereco = data.get("endereco")
         data_de_nascimento = data.get("data_de_nascimento")
         senha = data.get('senha')
         
@@ -39,7 +39,7 @@ class signin(Resource):
         
         
         insert = """insert into usuarios(CPF,nome,email,telefone,endereço,data_de_nascimento,senha) values (%s,%s,%s,%s,%s,%s,%s)"""
-        cursor.execute(insert,(cpf,nome,email,telefone,endereço,data_de_nascimento,senha_hash))
+        cursor.execute(insert,(cpf,nome,email,telefone,endereco,data_de_nascimento,senha_hash))
             
         con.commit()
         
@@ -217,4 +217,4 @@ class add_to_cart(Resource):
             'status':'error',
             'mensagem':'GET não é permitido'
         }, 400
-    
+
