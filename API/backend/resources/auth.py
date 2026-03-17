@@ -10,6 +10,8 @@ import mimetypes
 from backend.database.sql import conection
 from datetime import date, timedelta
 
+#GET, POST, PUT, DELETE
+
 class signin(Resource):
     def post(self):
         data = request.get_json()
@@ -179,6 +181,7 @@ class redefine_password(Resource):
             'erro':'GET não é permitido'
                 }, 400
     
+#carrinho = id_produto : quantidade, id_produto : quantidade 
 class add_to_cart(Resource):
     def post(self):
         con = conection()
